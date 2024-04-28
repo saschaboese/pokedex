@@ -1,10 +1,22 @@
+@font-face {
+    font-family: OpenSans;
+    src: url(./fonts/Open_Sans/OpenSans-Italic-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: Pokemon;
+    src: url(./fonts/Pokemon/Pokemon\ Solid.ttf);
+}
+
 body {
     margin: 0;
+    font-family: OpenSans;
 }
 
 h1 {
     display: flex;
     justify-content: center;
+    font-family: Pokemon;
 }
 
 header {
@@ -16,11 +28,14 @@ header {
 }
 
 .content {
-    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .pokemon-card {
-    color: rgb(248, 248, 248);
+    color: rgb(56, 56, 56);
     background-color: #FAD61D;
     width: 250px;
     height: 400px;
@@ -29,6 +44,13 @@ header {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: 250ms;
+}
+
+.pokemon-card:hover {
+    height: 430px;
 }
 
 .pokemon-indexnumber {
@@ -44,9 +66,9 @@ header {
 }
 
 .pokemon-element {
-    border: solid rgb(255, 255, 255) 2px;
-    border-radius: 8px;
-    padding: 4px;
+    border: solid rgb(142 142 142 / 13%) 2px;
+    border-radius: 4px;
+    padding: 0px 16px;
     width: max-content;
 }
 
