@@ -5,42 +5,64 @@ let currentPokemon;
 let currentPokemonID;
 
 let listOfPokemons = [];
+let pokemons = [];
 
-function init() {
-    loadPokemons();
+async function init() {
+    await loadPokemons();
+    renderPokemonCard();
 }
 
 async function loadPokemons() {
     await fetchListOfPokemon();
+    await savePokemonData();
+}
+
+async function savePokemonData() {
     for (let i = 0; i < listOfPokemons.length; i++) {
         const element = listOfPokemons[i];
-        await renderPokemonCard(element.name,i);
+        await getCurrentPokemonData(element.name);
+        pushDataToArray_pokemons();
     }
 }
 
-async function renderPokemonCard(pokemon,id) {
-    await getPokemonData(pokemon);
-    const content = document.getElementById('content');
-    content.innerHTML += templateOf_pokemoncard(id);
-    addInformationToPokemonCard(id);
+function pushDataToArray_pokemons() {
+    pokemons.push({
+        'name': currentPokemon.name,
+        'type': currentPokemon.types[0].type.name,
+        'indexNumber': currentPokemon.id,
+        'image': currentPokemon.sprites.other.home.front_default
+    })
 }
 
-async function getPokemonData(name) {
+async function getCurrentPokemonData(name) {
     await fetchPokemon(name);
     await fetchPokemonSpecies(name);
 }
 
-function addInformationToPokemonCard(id) {
-    document.getElementById('pokemonName'+id).innerHTML = currentPokemon.name;
-    document.getElementById('element'+id).innerHTML = currentPokemon.types[0].type.name;
-    document.getElementById('indexnumber'+id).innerHTML = '#'+currentPokemon.id;
-    document.getElementById('image'+id).src = currentPokemon.sprites.other.home.front_default;
-    changeBackgroundColor(id);
+function renderPokemonCard() {
+    for (let i = 0; i < pokemons.length; i++) {
+        const element = pokemons[i];
+        createPokemonCard(element, i);
+    }
 }
 
-function changeBackgroundColor(id) {
-    let type = currentPokemon.types[0].type.name;
-    document.getElementById('pokemoncard'+id).style.backgroundColor = CARD_COLOR[type];
+function createPokemonCard(pokemon, id) {
+    const content = document.getElementById('content');
+    content.innerHTML += templateOf_pokemoncard(id);
+    addInformationToPokemonCard(pokemon, id);
+}
+
+function addInformationToPokemonCard(pokemon, id) {
+    document.getElementById('pokemonName' + id).innerHTML = pokemon.name;
+    document.getElementById('element' + id).innerHTML = pokemon.type;
+    document.getElementById('indexnumber' + id).innerHTML = '#' + pokemon.indexNumber;
+    document.getElementById('image' + id).src = pokemon.image;
+    changeBackgroundColor(pokemon, id);
+}
+
+function changeBackgroundColor(pokemon, id) {
+    let type = pokemon.type;
+    document.getElementById('pokemoncard' + id).style.backgroundColor = CARD_COLOR[type];
 }
 
 async function fetchPokemon(name) {
