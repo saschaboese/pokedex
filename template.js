@@ -10,3 +10,24 @@ function templateOf_pokemoncard(id) {
 </div>
     `
 }
+
+const CARD_COLOR = {
+    'fire': '#6f1919',
+    'grass': '#0f640f',
+    'water': '#12166a',
+    'bug': '#5f5520',
+    'normal': '#8d8d8d',
+    'poison': '#342e5c',
+    'electric': '#c4ad38',
+    'ground': '#3a330c',
+    'fairy': '#bf4fbc',
+    'fighting': '#c2bda0',
+    'psychic': '#9d49b6',
+    'rock': '#3a3936',
+    'ghost': '#bda1ff',
+    'ice': '#becbf7',
+    'dragon': '#c68d2b',
+    'flying': '#becbf7',
+    'dark': '#161612',
+    'steel': '#bfbfbf'
+}
