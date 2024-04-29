@@ -50,8 +50,8 @@ header {
     transition: 250ms;
 }
 
-.pokemon-card:hover {
-    height: 430px;
+.pokemon-card:hover > .pokemon-image{
+    filter: drop-shadow(10px 10px 10px #222);
 }
 
 .pokemon-indexnumber {
@@ -85,6 +85,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(5px 5px 5px #222);
+    transition: 150ms;
 }
 
 .pokemon-image img {
