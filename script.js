@@ -12,8 +12,10 @@ async function init() {
 }
 
 async function loadPokemons() {
+    startLoadingIMG();
     await getListOfPokemon();
     await savePokemonData();
+    stopLoadingIMG();
 }
 
 async function savePokemonData() {
@@ -76,7 +78,7 @@ async function getCurrentPokemonData(name) {
 async function getListOfPokemon() {
     let response = await fetch(DB_POKEMON_LIST_URL);
     responseAsJson = await response.json();
-    listOfPokemons = responseAsJson.results
+    listOfPokemons = responseAsJson.results;
 }
 
 async function loadMore() {
@@ -85,4 +87,12 @@ async function loadMore() {
     DB_POKEMON_LIST_URL = `https://pokeapi.co/api/v2/pokemon?limit=${endIndexToLoadPokemonsFromAPI}&offset=${startIndexToLoadPokemonsFromAPI}`;
     await loadPokemons();
     renderPokemonCard();
+}
+
+function startLoadingIMG() {
+    document.getElementById('load').classList.replace('d-none','load');
+}
+
+function stopLoadingIMG() {
+    document.getElementById('load').classList.replace('load','d-none');
 }
