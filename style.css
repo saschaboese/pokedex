@@ -92,3 +92,23 @@ header {
 .pokemon-image img {
     width: 80%;
 }
+
+.load-more-button {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-image: url('./img/pokeball.png');
+    background-position: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: solid 1px #222;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}

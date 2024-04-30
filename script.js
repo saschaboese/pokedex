@@ -1,7 +1,7 @@
-let amountToLoadPokemonsFromAPI = 9;
 let startIndexToLoadPokemonsFromAPI = 0;
-const DB_POKEMON_LIST_URL = `https://pokeapi.co/api/v2/pokemon?limit=${amountToLoadPokemonsFromAPI}&offset=${startIndexToLoadPokemonsFromAPI}`;
-const DB_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/';
+let endIndexToLoadPokemonsFromAPI = 9;
+let DB_POKEMON_LIST_URL = `https://pokeapi.co/api/v2/pokemon?limit=${endIndexToLoadPokemonsFromAPI}&offset=${startIndexToLoadPokemonsFromAPI}`;
+let DB_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let currentPokemon;
 let listOfPokemons = [];
 let pokemons = [];
@@ -12,7 +12,7 @@ async function init() {
 }
 
 async function loadPokemons() {
-    await fetchListOfPokemon();
+    await getListOfPokemon();
     await savePokemonData();
 }
 
@@ -40,11 +40,12 @@ function pushDataToArray_pokemons() {
         }
     })
 }
+let PokemonID = 0;
 
 function renderPokemonCard() {
-    for (let i = 0; i < pokemons.length; i++) {
-        const element = pokemons[i];
-        createPokemonCard(element, i);
+    for (PokemonID; PokemonID < pokemons.length; PokemonID++) {
+        const pokemon = pokemons[PokemonID];
+        createPokemonCard(pokemon, PokemonID);
     }
 }
 
@@ -68,16 +69,20 @@ function changeBackgroundColor(pokemon, id) {
 }
 
 async function getCurrentPokemonData(name) {
-    await fetchPokemon(name);
-}
-
-async function fetchPokemon(name) {
     let response = await fetch(DB_POKEMON_URL + name);
     currentPokemon = await response.json();
 }
 
-async function fetchListOfPokemon() {
+async function getListOfPokemon() {
     let response = await fetch(DB_POKEMON_LIST_URL);
     responseAsJson = await response.json();
     listOfPokemons = responseAsJson.results
+}
+
+async function loadMore() {
+    startIndexToLoadPokemonsFromAPI = startIndexToLoadPokemonsFromAPI + 9;
+    endIndexToLoadPokemonsFromAPI = endIndexToLoadPokemonsFromAPI + 9;
+    DB_POKEMON_LIST_URL = `https://pokeapi.co/api/v2/pokemon?limit=${endIndexToLoadPokemonsFromAPI}&offset=${startIndexToLoadPokemonsFromAPI}`;
+    await loadPokemons();
+    renderPokemonCard();
 }
