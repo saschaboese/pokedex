@@ -42,32 +42,31 @@ function pushDataToArray_pokemons() {
         }
     })
 }
-let PokemonID = 0;
 
 function renderPokemonCard() {
-    for (PokemonID; PokemonID < pokemons.length; PokemonID++) {
-        const pokemon = pokemons[PokemonID];
-        createPokemonCard(pokemon, PokemonID);
-    }
+    pokemons.forEach(pokemon => {
+        createPokemonCard(pokemon);
+    });
 }
 
-function createPokemonCard(pokemon, id) {
+function createPokemonCard(pokemon) {
+    let PokemonID = pokemon.indexNumber;
     const content = document.getElementById('content');
-    content.innerHTML += templateOf_pokemoncard(id);
-    addInformationToPokemonCard(pokemon, id);
+    content.innerHTML += templateOf_pokemoncard(PokemonID);
+    addInformationToPokemonCard(pokemon, PokemonID);
 }
 
-function addInformationToPokemonCard(pokemon, id) {
-    document.getElementById('pokemonName' + id).innerHTML = pokemon.name;
-    document.getElementById('element' + id).innerHTML = pokemon.type;
-    document.getElementById('indexnumber' + id).innerHTML = '#' + pokemon.indexNumber;
-    document.getElementById('image' + id).src = pokemon.image;
-    changeBackgroundColor(pokemon, id);
+function addInformationToPokemonCard(pokemon, PokemonID) {
+    document.getElementById('pokemonName' + PokemonID).innerHTML = pokemon.name;
+    document.getElementById('element' + PokemonID).innerHTML = pokemon.type;
+    document.getElementById('indexnumber' + PokemonID).innerHTML = '#' + pokemon.indexNumber;
+    document.getElementById('image' + PokemonID).src = pokemon.image;
+    changeBackgroundColor(pokemon, PokemonID);
 }
 
-function changeBackgroundColor(pokemon, id) {
+function changeBackgroundColor(pokemon, PokemonID) {
     let type = pokemon.type;
-    document.getElementById('pokemoncard' + id).style.backgroundColor = CARD_COLOR[type];
+    document.getElementById('pokemoncard' + PokemonID).style.backgroundColor = CARD_COLOR[type];
 }
 
 async function getCurrentPokemonData(name) {
@@ -95,4 +94,15 @@ function startLoadingIMG() {
 
 function stopLoadingIMG() {
     document.getElementById('load').classList.replace('load','d-none');
+}
+
+
+function search() {
+    let searchInput = document.getElementById('search').value;
+    let findElement = pokemons.filter(item => item.name.toLowerCase().includes(searchInput.toLowerCase()));
+    document.getElementById('content').innerHTML = '';
+    
+    findElement.forEach(pokemon => {
+        createPokemonCard(pokemon);
+    });
 }
