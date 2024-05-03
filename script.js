@@ -120,6 +120,12 @@ function clearArrayAndContent() {
     searchPokemons = [];
 }
 
+function clearSearchInput() {
+    document.getElementById('search').value = '';
+    clearArrayAndContent();
+    toggleDisplayOnSections('content-section');
+}
+
 function toggleDisplayOnSections(toggle) {
     if(toggle == 'content-section'){
         document.getElementById('content-section').classList.remove('d-none');

@@ -12,9 +12,9 @@
 
 <body onload="init()">
     <header></header>
-    <div class="center">
-        <input type="text" placeholder="Suchen..." id="search" oninput="search()" class="search">
-        
+    <div class="center search">
+        <input type="text" placeholder="Suchen..." id="search" oninput="search()">
+        <button onclick="clearSearchInput()">X</button>
     </div>
     <h1>Pokedex</h1>
     <div class="content" id="content-section">
