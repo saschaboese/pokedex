@@ -1,11 +1,11 @@
-function templateOf_pokemoncard(id) {
+function createPokemonCard(pokemonID) {
     return `
-    <div class="pokemon-card" id="pokemoncard${id}" onclick="showStats(${id})">
-    <div class="pokemon-indexnumber" id="indexnumber${id}">#0</div>
-    <div class="pokemon-name" id="pokemonName${id}">Unknown</div>
-    <div class="pokemon-element" id="element${id}">Unknown</div>
+    <div class="pokemon-card" id="pokemoncard${pokemonID}" onclick="showStats(${pokemonID})">
+    <div class="pokemon-indexnumber" id="indexnumber${pokemonID}">#0</div>
+    <div class="pokemon-name" id="pokemonName${pokemonID}">Unknown</div>
+    <div class="pokemon-element" id="element${pokemonID}">Unknown</div>
     <div class="pokemon-image">
-        <img src="./img/pikachu.png" alt="pikachu" id="image${id}">
+        <img src="./img/pikachu.png" alt="pikachu" id="image${pokemonID}">
     </div>
 </div>
     `
