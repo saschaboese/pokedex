@@ -104,6 +104,42 @@ header {
     width: 80%;
 }
 
+.pokemon-statistics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.pokemon-statistic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pokemon-statistic-borderOut {
+    border: solid white 1px;
+    height: 18px;
+    border-radius: 10px;
+    width: 55%;
+    overflow: hidden;
+}
+
+.pokemon-statistic-borderIn {
+    background-color: yellow;
+    height: 100%;
+    width: 0;
+}
+
+.pokemon-statistic-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 12px;
+    
+}
+
 .load-more-button {
     display: flex;
     justify-content: center;

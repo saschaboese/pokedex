@@ -99,7 +99,7 @@ async function search() {
     clearArrayAndContent();
     let searchInput = document.getElementById('search').value;
     const content = document.getElementById('search-section');
-    
+
     if (searchInput.length >= 3) {
         toggleDisplayOnSections('search-section');
         let findElement = pokemonURLs.filter(item => item.name.toLowerCase().includes(searchInput.toLowerCase()));
@@ -127,7 +127,7 @@ function clearSearchInput() {
 }
 
 function toggleDisplayOnSections(toggle) {
-    if(toggle == 'content-section'){
+    if (toggle == 'content-section') {
         document.getElementById('content-section').classList.remove('d-none');
         document.getElementById('search-section').classList.add('d-none');
         document.getElementById('load-more-button').classList.remove('d-none');
@@ -137,3 +137,14 @@ function toggleDisplayOnSections(toggle) {
         document.getElementById('load-more-button').classList.add('d-none');
     }
 }
+
+function showStatistics(pokemonID) {
+    let pokemoncard_img = document.getElementById('pokemon-image' + pokemonID);
+    let pokemoncard_statistic = document.getElementById('statistic' + pokemonID);
+    pokemoncard_img.classList.toggle('d-none');
+    pokemoncard_statistic.classList.toggle('d-none');
+
+    let IdFromArray = pokemonID - 1;
+    pokemoncard_statistic.innerHTML = createStatistics(pokemonData[IdFromArray]['stats']['hp'],pokemonData[IdFromArray]['stats']['attack'],pokemonData[IdFromArray]['stats']['defense'],pokemonData[IdFromArray]['stats']['special-attack'],pokemonData[IdFromArray]['stats']['special-defense'],pokemonData[IdFromArray]['stats']['speed']);
+}
+
