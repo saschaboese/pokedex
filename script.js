@@ -132,4 +132,3 @@ function showStatistics(name) {
         pokemon.classList.toggle('d-none');
     });
 }
-
