@@ -8,7 +8,7 @@ let pokemonData = [];
 
 async function init() {
     await loadAndSavePokemonData(0, 9);
-    renderPokemonCard(0, 9, 'content-section');
+    renderPokemonCard(0, 9, 'content-section', pokemonData);
 }
 
 async function loadAndSavePokemonData(startID, endID) {
@@ -47,22 +47,8 @@ function renderPokemonCard(startID, endID, section) {
     const content = document.getElementById(section);
     for (startID; startID < endID; startID++) {
         const pokemon = pokemonData[startID];
-        content.innerHTML += createPokemonCard(pokemon.indexNumber);
-        addDataToPokemonCard(pokemon, pokemon.indexNumber);
+        content.innerHTML += createPokemonCard(startID,pokemon);
     }
-}
-
-function addDataToPokemonCard(pokemon, PokemonID) {
-    document.getElementById('pokemonName' + PokemonID).innerHTML = pokemon.name;
-    document.getElementById('element' + PokemonID).innerHTML = pokemon.type;
-    document.getElementById('indexnumber' + PokemonID).innerHTML = '#' + pokemon.indexNumber;
-    document.getElementById('image' + PokemonID).src = pokemon.image;
-    changeBackgroundColor(pokemon, PokemonID);
-}
-
-function changeBackgroundColor(pokemon, PokemonID) {
-    let type = pokemon.type;
-    document.getElementById('pokemoncard' + PokemonID).style.backgroundColor = CARD_COLOR[type];
 }
 
 async function getCurrentPokemonData(name) {
@@ -99,16 +85,14 @@ async function search() {
     clearArrayAndContent();
     let searchInput = document.getElementById('search').value;
     const content = document.getElementById('search-section');
-
     if (searchInput.length >= 3) {
         toggleDisplayOnSections('search-section');
         let findElement = pokemonURLs.filter(item => item.name.toLowerCase().includes(searchInput.toLowerCase()));
         await savePokemonData(0, findElement.length, findElement, searchPokemons);
-        searchPokemons.forEach(pokemon => {
-            let pokemonID = pokemon.indexNumber + '_SEARCH';
-            content.innerHTML += createPokemonCard(pokemonID);
-            addDataToPokemonCard(pokemon, pokemonID);
-        });
+        for (let i = 0; i < searchPokemons.length; i++) {
+            const pokemon = searchPokemons[i];
+            content.innerHTML += createPokemonCard(i,pokemon);
+        }
     } else {
         toggleDisplayOnSections('content-section');
     }
@@ -138,13 +122,14 @@ function toggleDisplayOnSections(toggle) {
     }
 }
 
-function showStatistics(pokemonID) {
-    let pokemoncard_img = document.getElementById('pokemon-image' + pokemonID);
-    let pokemoncard_statistic = document.getElementById('statistic' + pokemonID);
-    pokemoncard_img.classList.toggle('d-none');
-    pokemoncard_statistic.classList.toggle('d-none');
-
-    let IdFromArray = pokemonID - 1;
-    pokemoncard_statistic.innerHTML = createStatistics(pokemonData[IdFromArray]['stats']['hp'],pokemonData[IdFromArray]['stats']['attack'],pokemonData[IdFromArray]['stats']['defense'],pokemonData[IdFromArray]['stats']['special-attack'],pokemonData[IdFromArray]['stats']['special-defense'],pokemonData[IdFromArray]['stats']['speed']);
+function showStatistics(name) {
+    let pokemoncard_img = document.querySelectorAll('.pokemon-image-'+name);
+    let pokemoncard_statistic = document.querySelectorAll('.pokemon-statistic-'+name);
+    pokemoncard_img.forEach(pokemon => {
+        pokemon.classList.toggle('d-none');
+    });
+    pokemoncard_statistic.forEach(pokemon => {
+        pokemon.classList.toggle('d-none');
+    });
 }
 

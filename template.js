@@ -1,58 +1,60 @@
-function createPokemonCard(pokemonID) {
+function createPokemonCard(id,pokemon) {
     return `
-    <div class="pokemon-card" id="pokemoncard${pokemonID}" onclick="showStatistics(${pokemonID})">
-    <div class="pokemon-indexnumber" id="indexnumber${pokemonID}">#0</div>
-    <div class="pokemon-name" id="pokemonName${pokemonID}">Unknown</div>
-    <div class="pokemon-element" id="element${pokemonID}">Unknown</div>
-    <div class="pokemon-image" id="pokemon-image${pokemonID}">
-        <img src="./img/pikachu.png" alt="pikachu" id="image${pokemonID}">
+    <div class="pokemon-card" id="pokemoncard${id}" onclick="showStatistics('${pokemon['name']}')" style="background-color: ${CARD_COLOR[pokemon['type']]}">
+    <div class="pokemon-indexnumber">#${pokemon['indexNumber']}</div>
+    <div class="pokemon-name">${pokemon['name']}</div>
+    <div class="pokemon-element">${pokemon['type']}</div>
+    <div class="pokemon-image pokemon-image-${pokemon['name']}" id="pokemon-image${id}">
+        <img src="${pokemon['image']}" alt="pikachu">
     </div>
-        <div class="pokemon-statistics d-none" id="statistic${pokemonID}"></div>
+    <div class="pokemon-statistics pokemon-statistic-${pokemon['name']} d-none" id="pokemon-statistic${id}">
+        ${createStatistics(pokemon)}
+    </div>
     </div>
     `
 }
 
-function createStatistics(hp, attack, defense, special_attack, special_defense, speed) {
+function createStatistics(pokemon) {
     return `
     <div class="pokemon-statistic">HP: 
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${hp}%">
-                <div class="pokemon-statistic-value">${hp}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['hp']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['hp']}%</div>
             </div>        
         </div>
     </div>
     <div class="pokemon-statistic">Attack: 
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${attack}%">
-                <div class="pokemon-statistic-value">${attack}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['attack']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['attack']}%</div>
             </div>        
         </div>
     </div>
     <div class="pokemon-statistic">Defense:
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${defense}%">
-                <div class="pokemon-statistic-value">${defense}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['defense']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['defense']}%</div>
             </div>        
         </div>
     </div>
     <div class="pokemon-statistic">Spez.-Attack:
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${special_attack}%">
-                <div class="pokemon-statistic-value">${special_attack}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['special-attack']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['special-attack']}%</div>
             </div>        
         </div>
     </div>
     <div class="pokemon-statistic">Spez.-Defense:
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${special_defense}%">
-                <div class="pokemon-statistic-value">${special_defense}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['special-defense']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['special-defense']}%</div>
             </div>        
         </div>
     </div>
     <div class="pokemon-statistic">Speed:
         <div class="pokemon-statistic-borderOut">
-            <div class="pokemon-statistic-borderIn" style="width:${speed}%">
-                <div class="pokemon-statistic-value">${speed}%</div>
+            <div class="pokemon-statistic-borderIn" style="width:${pokemon['stats']['speed']}%">
+                <div class="pokemon-statistic-value">${pokemon['stats']['speed']}%</div>
             </div>        
         </div>
     </div>
